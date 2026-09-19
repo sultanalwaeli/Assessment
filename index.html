@@ -63,6 +63,13 @@ button{cursor:pointer}
 .badge{background:#f2f4f7;color:#667085;padding:5px 9px;border-radius:999px;font-size:11px;border:1px solid #eaecf0}
 .badge.done{background:var(--green-bg);color:var(--green);font-weight:800}
 .note-badge{background:var(--amber-bg);color:var(--amber)}
+.behavior-btn{background:#7a3e2f;color:#fff;border:0;border-radius:13px;padding:12px 16px;font-weight:800}
+.behavior-badge{background:#fdf1ed;color:#8b3f2e;border-color:#f1d3ca;font-weight:800}
+.behavior-card{border:1px solid #eadbd5;background:#fffaf8;border-radius:16px;padding:13px;margin:10px 0}
+.behavior-card strong{color:#7a3e2f}
+.behavior-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;font-size:12px;color:#667085}
+.behavior-empty{padding:15px;text-align:center;background:#f7f9fb;border-radius:14px;color:#98a2b3}
+@media(max-width:560px){.behavior-meta{grid-template-columns:1fr}}
 .modal{position:fixed;inset:0;background:rgba(11,27,45,.62);display:flex;align-items:center;justify-content:center;padding:16px;z-index:999}
 .modal-box{width:min(570px,100%);max-height:90vh;overflow:auto;background:white;border-radius:24px;padding:22px}
 .modal-title{font-size:20px;font-weight:900;color:var(--navy);margin:0 0 15px}
@@ -144,7 +151,7 @@ button{cursor:pointer}
     </div>
 
     <div class="toolbar">
-      <button class="primary" onclick="openBulk()">رصد جماعي</button>
+      <button id="bulkButton" class="primary" onclick="openBulk()">رصد جماعي</button>
       <button class="soft" onclick="refreshStudents()">تحديث البيانات</button>
     </div>
 
@@ -221,6 +228,36 @@ button{cursor:pointer}
 </div>
 </div>
 
+<div id="behaviorModal" class="modal hidden">
+<div class="modal-box">
+  <h3 class="modal-title" id="behaviorStudent"></h3>
+  <div id="behaviorExisting"></div>
+
+  <div id="behaviorForm">
+    <div class="field">
+      <label>السلوك</label>
+      <textarea class="control" id="behaviorValue" rows="3" placeholder="اكتب السلوك المرصود..."></textarea>
+    </div>
+    <div class="field">
+      <label>تاريخ السلوك</label>
+      <input class="control" id="behaviorDate" type="date">
+    </div>
+    <div class="field">
+      <label>الإجراء المتخذ</label>
+      <textarea class="control" id="behaviorAction" rows="3" placeholder="اكتب الإجراء المتخذ..."></textarea>
+    </div>
+    <div class="field">
+      <label>المصدر</label>
+      <input class="control" id="behaviorSource" placeholder="مثال: معلم المادة / المناوبة / الإدارة">
+    </div>
+    <div class="modal-actions">
+      <button class="behavior-btn" onclick="saveBehavior()">حفظ السلوك</button>
+      <button class="soft" onclick="closeModal('behaviorModal')">إلغاء</button>
+    </div>
+  </div>
+</div>
+</div>
+
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbz-uBDEsjAlHFRnqTD_vqqTD1RjCffNGxQuIi3h82wUGANNDC0dSSv5UIAbaWgWZzvJ/exec";
 
@@ -232,7 +269,8 @@ let session = {
   currentRecord: null,
   students: [],
   tools: [],
-  selectedStudent: null
+  selectedStudent: null,
+  recordType: "assessment"
 };
 
 const $ = id => document.getElementById(id);
@@ -324,8 +362,15 @@ async function openRecord(index) {
   $("recordTitle").textContent =
     `${session.currentRecord.subject} · ${session.currentRecord.grade}/${session.currentRecord.className}`;
 
+  session.recordType = session.currentRecord.recordType ||
+    (session.currentRecord.subject === "سجل السلوك" ? "behavior" : "assessment");
+
   $("recordSub").textContent =
-    `المعلم: ${session.teacher}`;
+    session.recordType === "behavior"
+      ? `المخول بالرصد: ${session.teacher}`
+      : `المعلم: ${session.teacher}`;
+
+  $("bulkButton").classList.toggle("hidden", session.recordType === "behavior");
 
   setStatus("جاري تحميل سجل الطلبة...");
 
@@ -362,75 +407,140 @@ async function loadStudents() {
 
   session.students = data.students || [];
   session.tools = data.tools || [];
+  session.recordType = data.recordType || session.currentRecord.recordType || session.recordType;
 }
 
 function renderStudents() {
-  const query =
-    $("searchStudent").value
-      .trim()
-      .toLowerCase();
-
+  const query = $("searchStudent").value.trim().toLowerCase();
   const list = $("studentsList");
   list.innerHTML = "";
 
-  const filtered =
-    session.students.filter(student =>
-      String(student.name)
-        .toLowerCase()
-        .includes(query)
-    );
+  const filtered = session.students.filter(student =>
+    String(student.name).toLowerCase().includes(query)
+  );
 
   if (!filtered.length) {
-    list.innerHTML =
-      '<div class="empty">لا توجد نتائج.</div>';
+    list.innerHTML = '<div class="empty">لا توجد نتائج.</div>';
     return;
   }
 
   filtered.forEach(student => {
-    const item =
-      document.createElement("div");
-
+    const item = document.createElement("div");
     item.className = "student";
 
-    const badges =
-      (student.grades || [])
-        .map(grade => `
-          <span class="badge ${grade.value !== "" ? "done" : ""}">
-            ${grade.name}:
-            ${grade.value !== "" ? grade.value : "—"}
-          </span>
-        `)
-        .join("");
-
-    item.innerHTML = `
-      <div class="student-head">
-        <div class="student-name">${student.name}</div>
-
-        <div class="actions">
-          <button class="primary">درجة</button>
-          <button class="soft">ملاحظة</button>
+    if (session.recordType === "behavior") {
+      const count = (student.behaviors || []).length;
+      item.innerHTML = `
+        <div class="student-head">
+          <div>
+            <div class="student-name">${student.name}</div>
+            <div class="sub">الرقم المدني: ${student.civilId || "—"}</div>
+          </div>
+          <div class="actions">
+            <button class="behavior-btn">السجل السلوكي</button>
+          </div>
         </div>
-      </div>
+        <div class="badges">
+          <span class="badge ${count ? "behavior-badge" : ""}">
+            ${count ? `السلوكيات المرصودة: ${count} من 5` : "لا توجد سلوكيات مرصودة"}
+          </span>
+        </div>`;
+      item.querySelector("button").onclick = () => openBehavior(student);
+    } else {
+      const badges = (student.grades || []).map(grade => `
+        <span class="badge ${grade.value !== "" ? "done" : ""}">
+          ${grade.name}: ${grade.value !== "" ? grade.value : "—"}
+        </span>`).join("");
 
-      <div class="badges">
-        ${badges}
-        ${student.note
-          ? '<span class="badge note-badge">ملاحظة موجودة</span>'
-          : ''}
-      </div>
-    `;
+      item.innerHTML = `
+        <div class="student-head">
+          <div class="student-name">${student.name}</div>
+          <div class="actions">
+            <button class="primary">درجة</button>
+            <button class="soft">ملاحظة</button>
+          </div>
+        </div>
+        <div class="badges">
+          ${badges}
+          ${student.note ? '<span class="badge note-badge">ملاحظة موجودة</span>' : ''}
+        </div>`;
 
-    const buttons =
-      item.querySelectorAll("button");
-
-    buttons[0].onclick =
-      () => openGrade(student);
-
-    buttons[1].onclick =
-      () => openNote(student);
+      const buttons = item.querySelectorAll("button");
+      buttons[0].onclick = () => openGrade(student);
+      buttons[1].onclick = () => openNote(student);
+    }
 
     list.appendChild(item);
   });
+}
+
+function openBehavior(student) {
+  session.selectedStudent = student;
+  $("behaviorStudent").textContent = "السجل السلوكي · " + student.name;
+
+  const behaviors = student.behaviors || [];
+  if (!behaviors.length) {
+    $("behaviorExisting").innerHTML = '<div class="behavior-empty">لا توجد سلوكيات مرصودة لهذا الطالب.</div>';
+  } else {
+    $("behaviorExisting").innerHTML = behaviors.map(item => `
+      <div class="behavior-card">
+        <strong>السلوك ${item.slot}: ${item.behavior || "—"}</strong>
+        <div class="behavior-meta">
+          <div><b>التاريخ:</b> ${item.date || "—"}</div>
+          <div><b>المصدر:</b> ${item.source || "—"}</div>
+          <div style="grid-column:1/-1"><b>الإجراء:</b> ${item.action || "—"}</div>
+        </div>
+      </div>`).join("");
+  }
+
+  const full = behaviors.length >= 5;
+  $("behaviorForm").classList.toggle("hidden", full);
+  if (full) {
+    $("behaviorExisting").innerHTML += '<div class="status err">تم استكمال السلوكيات الخمس لهذا الطالب.</div>';
+  } else {
+    $("behaviorValue").value = "";
+    $("behaviorAction").value = "";
+    $("behaviorSource").value = "";
+    $("behaviorDate").value = new Date().toISOString().slice(0,10);
+  }
+
+  $("behaviorModal").classList.remove("hidden");
+}
+
+async function saveBehavior() {
+  const behavior = $("behaviorValue").value.trim();
+  const date = $("behaviorDate").value;
+  const actionTaken = $("behaviorAction").value.trim();
+  const source = $("behaviorSource").value.trim();
+
+  if (!behavior || !date || !actionTaken || !source) {
+    return alert("يرجى تعبئة السلوك والتاريخ والإجراء والمصدر");
+  }
+
+  try {
+    const data = await api({
+      action:"saveBehavior",
+      employeeId:session.employeeId,
+      pin:session.pin,
+      recordId:session.currentRecord.recordId,
+      civilId:session.selectedStudent.civilId,
+      behavior,
+      date,
+      actionTaken,
+      source
+    });
+
+    if (!data.success) {
+      return setStatus(data.message || "تعذر حفظ السلوك.", "err");
+    }
+
+    closeModal("behaviorModal");
+    await loadStudents();
+    renderStudents();
+    setStatus(data.message || "تم حفظ السلوك بنجاح.");
+  } catch(error) {
+    setStatus(error.message || "تعذر حفظ السلوك.", "err");
+  }
 }
 
 function fillTools(id) {
@@ -748,6 +858,7 @@ function backToRecords() {
   session.students = [];
   session.tools = [];
   session.selectedStudent = null;
+  session.recordType = "assessment";
 
   setStatus("");
 }
@@ -761,7 +872,8 @@ function logout() {
     currentRecord:null,
     students:[],
     tools:[],
-    selectedStudent:null
+    selectedStudent:null,
+    recordType:"assessment"
   };
 
   $("recordsView").classList.add("hidden");
