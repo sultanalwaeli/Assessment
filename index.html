@@ -4,887 +4,3487 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#102f52">
+
 <title>منصة الرصد والتقويم | أبو الدرداء</title>
+
 <style>
 :root{
-  --navy:#102f52;--navy2:#183f68;--gold:#b99046;--ink:#17263a;
-  --muted:#718096;--bg:#f4f7fa;--line:#e5eaf0;--white:#fff;
-  --green:#147a5b;--green-bg:#eaf8f2;--amber:#9a6421;--amber-bg:#fff7e8;
+  --navy:#102f52;
+  --navy2:#183f68;
+  --gold:#b99046;
+  --ink:#17263a;
+  --muted:#718096;
+  --bg:#f4f7fa;
+  --line:#e5eaf0;
+  --white:#fff;
+
+  --green:#147a5b;
+  --green-bg:#eaf8f2;
+
+  --amber:#9a6421;
+  --amber-bg:#fff7e8;
+
+  --red:#b42318;
+  --red-bg:#fff0ef;
+
+  --blue-bg:#edf5ff;
+
   --shadow:0 18px 50px rgba(16,47,82,.10);
 }
-*{box-sizing:border-box}
-body{margin:0;font-family:Tahoma,Arial,sans-serif;background:radial-gradient(circle at 85% 0%,rgba(185,144,70,.10),transparent 24rem),linear-gradient(180deg,#eef3f7 0,#f8fafc 45%,#f4f7fa 100%);color:var(--ink);min-height:100vh}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
-.shell{width:min(1050px,calc(100% - 28px));margin:auto;padding:22px 0 42px}
-.brandbar{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);border-radius:25px;padding:15px 18px;margin-bottom:18px}
-.logo{width:76px;height:76px;object-fit:contain;border-radius:18px;background:#fff;border:1px solid var(--line);padding:5px}
-.brandcopy{flex:1}
-.ministry{font-size:12px;color:#667085;line-height:1.7}
-.school{font-size:18px;font-weight:800;color:var(--navy);margin-top:1px}
-.brandmark{font-size:11px;color:var(--gold);font-weight:800;letter-spacing:.04em}
-.hero{background:linear-gradient(135deg,var(--navy),#1c527e);border-radius:30px;overflow:hidden;box-shadow:0 25px 65px rgba(16,47,82,.18);position:relative}
-.hero-inner{position:relative;z-index:2;padding:38px;display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center}
-.hero-title{color:#fff;font-size:38px;line-height:1.25;margin:0 0 9px;font-weight:900}
-.hero-en{color:#dbe7f1;font-size:14px}
-.hero-desc{color:#d6e3ed;line-height:1.9;font-size:15px;margin:20px 0 0}
-.gold-line{width:58px;height:4px;border-radius:9px;background:var(--gold);margin:17px 0}
-.login-card{background:#fff;padding:25px;border-radius:24px;box-shadow:0 18px 50px rgba(0,0,0,.13)}
-.login-card h2{margin:0 0 5px;color:var(--navy)}
-.login-card p{margin:0 0 20px;color:var(--muted);font-size:13px}
-.field{margin-bottom:13px}
-.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px;color:#344054}
-.control{width:100%;border:1px solid #dce3ea;background:#fbfcfd;border-radius:13px;padding:13px 14px;outline:none}
-.primary,.soft,.outline{border:0;border-radius:13px;padding:12px 16px;font-weight:800}
-.primary{background:var(--navy);color:#fff}
-.soft{background:#edf3f8;color:var(--navy)}
-.outline{background:#fff;color:var(--navy);border:1px solid #dce3ea}
-.full{width:100%}
-.status{margin:0 0 14px;padding:11px 14px;border-radius:12px;font-size:13px}
-.ok{background:var(--green-bg);color:var(--green)}
-.err{background:#fff0ef;color:#b42318}
-.section-card{background:white;border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);margin-bottom:15px}
-.topline{display:flex;justify-content:space-between;gap:14px;align-items:center}
-.welcome{font-size:20px;font-weight:900;color:var(--navy)}
-.sub{font-size:13px;color:var(--muted);margin-top:5px}
-.records-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-.record{border:1px solid var(--line);background:white;border-radius:20px;padding:18px;text-align:right;position:relative}
-.record:after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:var(--gold)}
-.record .subject{font-size:17px;font-weight:900;color:var(--navy);margin-bottom:7px}
-.record .class{font-size:14px;color:#344054}
-.record .sheet{font-size:11px;color:#98a2b3;margin-top:8px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-.student{padding:15px 2px;border-bottom:1px solid #edf0f3}
-.student-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.student-name{font-size:16px;font-weight:900;color:#25364c}
-.actions{display:flex;gap:7px}
-.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.badge{background:#f2f4f7;color:#667085;padding:5px 9px;border-radius:999px;font-size:11px;border:1px solid #eaecf0}
-.badge.done{background:var(--green-bg);color:var(--green);font-weight:800}
-.note-badge{background:var(--amber-bg);color:var(--amber)}
-.behavior-btn{background:#7a3e2f;color:#fff;border:0;border-radius:13px;padding:12px 16px;font-weight:800}
-.behavior-badge{background:#fdf1ed;color:#8b3f2e;border-color:#f1d3ca;font-weight:800}
-.behavior-card{border:1px solid #eadbd5;background:#fffaf8;border-radius:16px;padding:13px;margin:10px 0}
-.behavior-card strong{color:#7a3e2f}
-.behavior-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;font-size:12px;color:#667085}
-.behavior-empty{padding:15px;text-align:center;background:#f7f9fb;border-radius:14px;color:#98a2b3}
-@media(max-width:560px){.behavior-meta{grid-template-columns:1fr}}
-.modal{position:fixed;inset:0;background:rgba(11,27,45,.62);display:flex;align-items:center;justify-content:center;padding:16px;z-index:999}
-.modal-box{width:min(570px,100%);max-height:90vh;overflow:auto;background:white;border-radius:24px;padding:22px}
-.modal-title{font-size:20px;font-weight:900;color:var(--navy);margin:0 0 15px}
-.existing{background:#f7f9fb;border:1px solid #edf0f3;border-radius:12px;padding:10px 12px;font-size:13px;color:#475467;margin-bottom:13px}
-.modal-actions{display:flex;gap:8px;margin-top:15px}
-.bulk-row{display:grid;grid-template-columns:1fr 110px;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #edf0f3}
-.empty{text-align:center;padding:28px;color:#98a2b3}
-.footer{text-align:center;color:#98a2b3;font-size:11px;margin-top:18px;line-height:1.8}
-@media(max-width:800px){.hero-inner{grid-template-columns:1fr;padding:25px}.records-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.shell{width:min(100% - 18px,1050px)}.logo{width:62px;height:62px}.school{font-size:15px}.hero-inner{padding:21px}.hero-title{font-size:27px}.records-grid{grid-template-columns:1fr}.student-head{align-items:flex-start;flex-direction:column}.actions{width:100%}.actions button{flex:1}}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Tahoma,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 85% 0%,rgba(18,75,116,.08),transparent 35%),
+    var(--bg);
+  color:var(--ink);
+}
+
+button,
+input,
+select,
+textarea{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+button:disabled{
+  cursor:not-allowed;
+  opacity:.60;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.shell{
+  width:min(1050px,calc(100% - 30px));
+  margin:22px auto 40px;
+}
+
+
+/* ==============================
+   الهوية
+============================== */
+
+.brandbar{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.logo{
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  object-fit:cover;
+  background:white;
+  border:3px solid white;
+  box-shadow:0 8px 24px rgba(16,47,82,.12);
+}
+
+.brandcopy{
+  flex:1;
+}
+
+.ministry{
+  color:#6f7f91;
+  font-size:11px;
+  line-height:1.8;
+}
+
+.school{
+  color:var(--navy);
+  font-size:17px;
+  font-weight:900;
+  margin-top:3px;
+}
+
+.brandmark{
+  color:var(--gold);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+
+/* ==============================
+   الأزرار
+============================== */
+
+.primary,
+.soft,
+.outline,
+.danger{
+  border:0;
+  border-radius:12px;
+  padding:11px 15px;
+  font-weight:800;
+  transition:.2s ease;
+}
+
+.primary{
+  background:var(--navy);
+  color:white;
+}
+
+.primary:hover:not(:disabled){
+  background:var(--navy2);
+}
+
+.soft{
+  background:#eef2f6;
+  color:#344054;
+}
+
+.soft:hover:not(:disabled){
+  background:#e4eaf0;
+}
+
+.outline{
+  background:white;
+  color:var(--navy);
+  border:1px solid #dce3ea;
+}
+
+.danger{
+  background:var(--red-bg);
+  color:var(--red);
+}
+
+.full{
+  width:100%;
+}
+
+
+/* ==============================
+   رسائل الحالة
+============================== */
+
+.status{
+  margin:0 0 14px;
+  padding:12px 15px;
+  border-radius:12px;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.ok{
+  background:var(--green-bg);
+  color:var(--green);
+}
+
+.err{
+  background:var(--red-bg);
+  color:var(--red);
+}
+
+
+/* ==============================
+   تسجيل الدخول
+============================== */
+
+.hero{
+  overflow:hidden;
+  border-radius:28px;
+  background:
+    linear-gradient(135deg,#102f52,#183f68);
+  color:white;
+  box-shadow:var(--shadow);
+}
+
+.hero-inner{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:30px;
+  align-items:center;
+  padding:42px;
+}
+
+.hero-title{
+  font-size:38px;
+  line-height:1.25;
+  margin:8px 0 4px;
+}
+
+.hero-en{
+  color:#c7d5e4;
+  font-size:13px;
+}
+
+.gold-line{
+  width:60px;
+  height:3px;
+  background:var(--gold);
+  margin:18px 0;
+}
+
+.hero-desc{
+  color:#dce7f2;
+  line-height:2;
+  max-width:560px;
+  font-size:14px;
+}
+
+.login-card{
+  background:white;
+  color:var(--ink);
+  padding:24px;
+  border-radius:22px;
+  box-shadow:0 20px 50px rgba(0,0,0,.15);
+}
+
+.login-card h2{
+  color:var(--navy);
+  margin:0 0 5px;
+}
+
+.login-card p{
+  margin:0 0 18px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+
+/* ==============================
+   الحقول
+============================== */
+
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
+  display:block;
+  font-size:12px;
+  font-weight:800;
+  color:#475467;
+  margin-bottom:7px;
+}
+
+.control{
+  width:100%;
+  border:1px solid #dce3ea;
+  background:white;
+  border-radius:12px;
+  padding:12px 13px;
+  outline:none;
+  font-size:14px;
+  color:#25364c;
+}
+
+.control:focus{
+  border-color:#9db4ca;
+  box-shadow:0 0 0 3px rgba(16,47,82,.06);
+}
+
+textarea.control{
+  min-height:105px;
+  resize:vertical;
+}
+
+
+/* ==============================
+   البطاقات
+============================== */
+
+.section-card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:20px;
+  box-shadow:var(--shadow);
+  margin-bottom:15px;
+}
+
+.topline{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+}
+
+.welcome{
+  font-size:20px;
+  font-weight:900;
+  color:var(--navy);
+}
+
+.sub{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:5px;
+  line-height:1.7;
+}
+
+
+/* ==============================
+   السجلات
+============================== */
+
+.records-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+
+.record{
+  border:1px solid var(--line);
+  background:white;
+  border-radius:20px;
+  padding:18px;
+  text-align:right;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(16,47,82,.04);
+}
+
+.record:after{
+  content:"";
+  position:absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:var(--gold);
+}
+
+.record.behavior-record:after{
+  background:var(--green);
+}
+
+.record .subject{
+  font-size:17px;
+  font-weight:900;
+  color:var(--navy);
+  margin-bottom:7px;
+}
+
+.record .class{
+  font-size:14px;
+  color:#344054;
+}
+
+.record .sheet{
+  font-size:11px;
+  color:#98a2b3;
+  margin-top:8px;
+}
+
+.type-pill{
+  display:inline-block;
+  margin-top:11px;
+  padding:5px 9px;
+  border-radius:999px;
+  background:var(--green-bg);
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+}
+
+
+/* ==============================
+   شريط الأدوات
+============================== */
+
+.toolbar{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:16px 0;
+}
+
+
+/* ==============================
+   الطلاب
+============================== */
+
+.student{
+  padding:16px 2px;
+  border-bottom:1px solid #edf0f3;
+}
+
+.student:last-child{
+  border-bottom:0;
+}
+
+.student-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+}
+
+.student-name{
+  font-size:16px;
+  font-weight:900;
+  color:#25364c;
+}
+
+.student-meta{
+  margin-top:4px;
+  color:#98a2b3;
+  font-size:11px;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+}
+
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px;
+}
+
+.badge{
+  background:#f2f4f7;
+  color:#667085;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:11px;
+  border:1px solid #eaecf0;
+}
+
+.badge.done{
+  background:var(--green-bg);
+  color:var(--green);
+  font-weight:800;
+}
+
+.note-badge{
+  background:var(--amber-bg);
+  color:var(--amber);
+}
+
+.behavior-count{
+  background:var(--blue-bg);
+  color:var(--navy);
+  font-weight:900;
+}
+
+.behavior-count.full{
+  background:var(--red-bg);
+  color:var(--red);
+}
+
+
+/* ==============================
+   النوافذ
+============================== */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(11,27,45,.62);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  z-index:999;
+}
+
+.modal-box{
+  width:min(590px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 30px 80px rgba(0,0,0,.22);
+}
+
+.modal-title{
+  font-size:20px;
+  font-weight:900;
+  color:var(--navy);
+  margin:0 0 15px;
+}
+
+.existing{
+  background:#f7f9fb;
+  border:1px solid #edf0f3;
+  border-radius:12px;
+  padding:10px 12px;
+  font-size:13px;
+  color:#475467;
+  margin-bottom:13px;
+  line-height:1.7;
+}
+
+.modal-actions{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.bulk-row{
+  display:grid;
+  grid-template-columns:1fr 110px;
+  gap:10px;
+  align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid #edf0f3;
+}
+
+
+/* ==============================
+   سجل السلوك
+============================== */
+
+.behavior-summary{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  background:linear-gradient(135deg,#f7fbfa,#eef8f4);
+  border:1px solid #dceee7;
+  border-radius:15px;
+  padding:13px;
+  margin-bottom:14px;
+}
+
+.behavior-summary strong{
+  color:var(--green);
+}
+
+.behavior-history{
+  margin-bottom:18px;
+}
+
+.behavior-history-title{
+  color:var(--navy);
+  font-weight:900;
+  margin:0 0 10px;
+  font-size:14px;
+}
+
+.behavior-card{
+  border:1px solid #e5eaf0;
+  border-radius:15px;
+  padding:13px;
+  margin-bottom:9px;
+  background:#fbfcfd;
+}
+
+.behavior-card-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  margin-bottom:8px;
+}
+
+.behavior-number{
+  font-weight:900;
+  color:var(--navy);
+}
+
+.behavior-date{
+  color:#667085;
+  font-size:11px;
+}
+
+.behavior-main{
+  font-size:14px;
+  color:#25364c;
+  font-weight:800;
+  line-height:1.8;
+}
+
+.behavior-detail{
+  margin-top:7px;
+  color:#667085;
+  font-size:12px;
+  line-height:1.8;
+}
+
+.behavior-form{
+  border-top:1px solid #edf0f3;
+  padding-top:17px;
+  margin-top:12px;
+}
+
+.behavior-form-title{
+  font-size:15px;
+  font-weight:900;
+  color:var(--navy);
+  margin-bottom:14px;
+}
+
+.limit-message{
+  background:var(--amber-bg);
+  color:var(--amber);
+  padding:12px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:800;
+  line-height:1.7;
+}
+
+
+/* ==============================
+   عام
+============================== */
+
+.empty{
+  text-align:center;
+  padding:28px;
+  color:#98a2b3;
+}
+
+.footer{
+  text-align:center;
+  color:#98a2b3;
+  font-size:11px;
+  margin-top:18px;
+  line-height:1.8;
+}
+
+
+/* ==============================
+   الجوال
+============================== */
+
+@media(max-width:800px){
+
+  .hero-inner{
+    grid-template-columns:1fr;
+    padding:25px;
+  }
+
+  .records-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:560px){
+
+  .shell{
+    width:min(100% - 18px,1050px);
+  }
+
+  .logo{
+    width:62px;
+    height:62px;
+  }
+
+  .school{
+    font-size:15px;
+  }
+
+  .brandmark{
+    display:none;
+  }
+
+  .hero-inner{
+    padding:21px;
+  }
+
+  .hero-title{
+    font-size:27px;
+  }
+
+  .records-grid{
+    grid-template-columns:1fr;
+  }
+
+  .student-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .actions{
+    width:100%;
+  }
+
+  .actions button{
+    flex:1;
+  }
+
+  .topline{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .modal-actions{
+    flex-direction:column;
+  }
+
+  .modal-actions button{
+    width:100%;
+  }
+
+}
 </style>
 </head>
+
 <body>
 
 <div class="shell">
 
 <header class="brandbar">
-  <img class="logo" src="https://c.top4top.io/p_3906f6odb1.jpg" alt="شعار مدرسة أبو الدرداء">
+
+  <img
+    class="logo"
+    src="https://c.top4top.io/p_3906f6odb1.jpg"
+    alt="شعار مدرسة أبو الدرداء"
+  >
+
   <div class="brandcopy">
-    <div class="ministry">سلطنة عُمان · وزارة التعليم<br>المديرية العامة للتعليم بمحافظة الظاهرة</div>
-    <div class="school">مدرسة أبو الدرداء للتعليم الأساسي (5–12)</div>
+
+    <div class="ministry">
+      سلطنة عُمان · وزارة التربية والتعليم
+      <br>
+      المديرية العامة للتربية والتعليم بمحافظة الظاهرة
+    </div>
+
+    <div class="school">
+      مدرسة أبو الدرداء للتعليم الأساسي (5–12)
+    </div>
+
   </div>
-  <div class="brandmark">ABU DARDA</div>
+
+  <div class="brandmark">
+    ABU DARDA
+  </div>
+
 </header>
+
 
 <div id="status"></div>
 
-<section id="loginView" class="hero">
+
+<!-- ==========================================
+     تسجيل الدخول
+========================================== -->
+
+<section
+  id="loginView"
+  class="hero"
+>
+
 <div class="hero-inner">
+
 <div>
-  <div class="brandmark">DIGITAL ASSESSMENT</div>
-  <h1 class="hero-title">منصة الرصد والتقويم</h1>
-  <div class="hero-en">Assessment & Grade Entry Platform</div>
+
+  <div class="brandmark">
+    DIGITAL ASSESSMENT
+  </div>
+
+  <h1 class="hero-title">
+    منصة الرصد والتقويم
+  </h1>
+
+  <div class="hero-en">
+    Academic & Behavioral Records Platform
+  </div>
+
   <div class="gold-line"></div>
-  <p class="hero-desc">منصة موحدة لرصد أداء الطلبة في جميع المواد الدراسية، مع إتاحة السجلات وفق صلاحيات كل معلم.</p>
+
+  <p class="hero-desc">
+    منصة موحدة للرصد الأكاديمي والسلوكي،
+    تتيح للهيئة التعليمية الوصول إلى السجلات
+    المخصصة لها وفق الصلاحيات المعتمدة.
+  </p>
+
 </div>
+
 
 <div class="login-card">
-  <h2>تسجيل الدخول</h2>
-  <p>الدخول مخصص للهيئة التدريسية المصرح لها.</p>
+
+  <h2>
+    تسجيل الدخول
+  </h2>
+
+  <p>
+    الدخول مخصص للهيئة التعليمية والإدارية المصرح لها.
+  </p>
+
 
   <div class="field">
-    <label>الرقم الوظيفي</label>
-    <input class="control" id="employeeId" inputmode="numeric">
+
+    <label>
+      الرقم الوظيفي
+    </label>
+
+    <input
+      class="control"
+      id="employeeId"
+      inputmode="numeric"
+      autocomplete="username"
+    >
+
   </div>
+
 
   <div class="field">
-    <label>رمز الدخول PIN</label>
-    <input class="control" id="pin" type="password" inputmode="numeric">
+
+    <label>
+      رمز الدخول PIN
+    </label>
+
+    <input
+      class="control"
+      id="pin"
+      type="password"
+      inputmode="numeric"
+      autocomplete="current-password"
+    >
+
   </div>
 
-  <button class="primary full" onclick="login()">دخول إلى سجلاتي</button>
+
+  <button
+    class="primary full"
+    onclick="login()"
+  >
+    دخول إلى سجلاتي
+  </button>
+
 </div>
+
 </div>
+
 </section>
 
-<section id="recordsView" class="hidden">
+
+<!-- ==========================================
+     السجلات
+========================================== -->
+
+<section
+  id="recordsView"
+  class="hidden"
+>
+
   <div class="section-card">
+
     <div class="topline">
+
       <div>
-        <div class="welcome" id="teacherName"></div>
-        <div class="sub">السجلات المخصصة لك في مختلف المواد والصفوف</div>
+
+        <div
+          class="welcome"
+          id="teacherName"
+        ></div>
+
+        <div class="sub">
+          السجلات المخصصة لك في مختلف المواد والصفوف
+        </div>
+
       </div>
-      <button class="outline" onclick="logout()">تسجيل الخروج</button>
+
+
+      <button
+        class="outline"
+        onclick="logout()"
+      >
+        تسجيل الخروج
+      </button>
+
     </div>
+
   </div>
 
-  <div id="recordsGrid" class="records-grid"></div>
+
+  <div
+    id="recordsGrid"
+    class="records-grid"
+  ></div>
+
 </section>
 
-<section id="studentsView" class="hidden">
+
+<!-- ==========================================
+     الطلاب
+========================================== -->
+
+<section
+  id="studentsView"
+  class="hidden"
+>
+
   <div class="section-card">
+
     <div class="topline">
+
       <div>
-        <div class="welcome" id="recordTitle"></div>
-        <div class="sub" id="recordSub"></div>
+
+        <div
+          class="welcome"
+          id="recordTitle"
+        ></div>
+
+        <div
+          class="sub"
+          id="recordSub"
+        ></div>
+
       </div>
-      <button class="outline" onclick="backToRecords()">العودة للسجلات</button>
+
+
+      <button
+        class="outline"
+        onclick="backToRecords()"
+      >
+        العودة للسجلات
+      </button>
+
     </div>
+
 
     <div class="toolbar">
-      <button id="bulkButton" class="primary" onclick="openBulk()">رصد جماعي</button>
-      <button class="soft" onclick="refreshStudents()">تحديث البيانات</button>
+
+      <button
+        id="bulkButton"
+        class="primary"
+        onclick="openBulk()"
+      >
+        رصد جماعي
+      </button>
+
+      <button
+        class="soft"
+        onclick="refreshStudents()"
+      >
+        تحديث البيانات
+      </button>
+
     </div>
+
 
     <div class="field">
-      <input class="control" id="searchStudent" placeholder="ابحث باسم الطالب..." oninput="renderStudents()">
+
+      <input
+        class="control"
+        id="searchStudent"
+        placeholder="ابحث باسم الطالب أو الرقم المدني..."
+        oninput="renderStudents()"
+      >
+
     </div>
 
+
     <div id="studentsList"></div>
+
   </div>
+
 </section>
 
+
 <div class="footer">
-منصة الرصد والتقويم · مدرسة أبو الدرداء للتعليم الأساسي
+  منصة الرصد والتقويم · مدرسة أبو الدرداء للتعليم الأساسي
 </div>
 
 </div>
 
-<div id="gradeModal" class="modal hidden">
+
+<!-- ==========================================
+     نافذة الدرجة
+========================================== -->
+
+<div
+  id="gradeModal"
+  class="modal hidden"
+>
+
 <div class="modal-box">
-  <h3 class="modal-title" id="gradeStudent"></h3>
 
-  <div id="gradeExisting" class="existing"></div>
+  <h3
+    class="modal-title"
+    id="gradeStudent"
+  ></h3>
+
+
+  <div
+    id="gradeExisting"
+    class="existing"
+  ></div>
+
 
   <div class="field">
-    <label>أداة التقويم</label>
-    <select class="control" id="toolSelect" onchange="syncExistingGrade()"></select>
+
+    <label>
+      أداة التقويم
+    </label>
+
+    <select
+      class="control"
+      id="toolSelect"
+      onchange="syncExistingGrade()"
+    ></select>
+
   </div>
 
+
   <div class="field">
-    <label>الدرجة</label>
-    <input class="control" id="gradeValue" type="number" step="any">
+
+    <label>
+      الدرجة
+    </label>
+
+    <input
+      class="control"
+      id="gradeValue"
+      type="number"
+      step="any"
+    >
+
   </div>
+
 
   <div class="modal-actions">
-    <button class="primary" onclick="saveGrade()">حفظ / تحديث</button>
-    <button class="soft" onclick="closeModal('gradeModal')">إلغاء</button>
+
+    <button
+      class="primary"
+      onclick="saveGrade()"
+    >
+      حفظ / تحديث
+    </button>
+
+    <button
+      class="soft"
+      onclick="closeModal('gradeModal')"
+    >
+      إلغاء
+    </button>
+
   </div>
-</div>
+
 </div>
 
-<div id="noteModal" class="modal hidden">
+</div>
+
+
+<!-- ==========================================
+     نافذة الملاحظة
+========================================== -->
+
+<div
+  id="noteModal"
+  class="modal hidden"
+>
+
 <div class="modal-box">
-  <h3 class="modal-title" id="noteStudent"></h3>
+
+  <h3
+    class="modal-title"
+    id="noteStudent"
+  ></h3>
+
 
   <div class="field">
-    <label>الملاحظة</label>
-    <textarea class="control" id="noteValue"></textarea>
+
+    <label>
+      الملاحظة
+    </label>
+
+    <textarea
+      class="control"
+      id="noteValue"
+    ></textarea>
+
   </div>
+
 
   <div class="modal-actions">
-    <button class="primary" onclick="saveNote()">حفظ / تحديث</button>
-    <button class="soft" onclick="closeModal('noteModal')">إلغاء</button>
+
+    <button
+      class="primary"
+      onclick="saveNote()"
+    >
+      حفظ / تحديث
+    </button>
+
+    <button
+      class="soft"
+      onclick="closeModal('noteModal')"
+    >
+      إلغاء
+    </button>
+
   </div>
-</div>
+
 </div>
 
-<div id="bulkModal" class="modal hidden">
+</div>
+
+
+<!-- ==========================================
+     الرصد الجماعي
+========================================== -->
+
+<div
+  id="bulkModal"
+  class="modal hidden"
+>
+
 <div class="modal-box">
-  <h3 class="modal-title">الرصد الجماعي</h3>
+
+  <h3 class="modal-title">
+    الرصد الجماعي
+  </h3>
+
 
   <div class="field">
-    <label>أداة التقويم</label>
-    <select class="control" id="bulkToolSelect" onchange="renderBulkRows()"></select>
+
+    <label>
+      أداة التقويم
+    </label>
+
+    <select
+      class="control"
+      id="bulkToolSelect"
+      onchange="renderBulkRows()"
+    ></select>
+
   </div>
 
-  <div class="existing">الدرجات المرصودة سابقًا تظهر تلقائيًا ويمكن تعديلها.</div>
+
+  <div class="existing">
+    الدرجات المرصودة سابقًا تظهر تلقائيًا ويمكن تعديلها.
+  </div>
+
 
   <div id="bulkRows"></div>
 
+
   <div class="modal-actions">
-    <button class="primary" onclick="saveBulk()">حفظ الدرجات</button>
-    <button class="soft" onclick="closeModal('bulkModal')">إلغاء</button>
+
+    <button
+      class="primary"
+      onclick="saveBulk()"
+    >
+      حفظ الدرجات
+    </button>
+
+    <button
+      class="soft"
+      onclick="closeModal('bulkModal')"
+    >
+      إلغاء
+    </button>
+
   </div>
-</div>
+
 </div>
 
-<div id="behaviorModal" class="modal hidden">
+</div>
+
+
+<!-- ==========================================
+     نافذة سجل السلوك
+========================================== -->
+
+<div
+  id="behaviorModal"
+  class="modal hidden"
+>
+
 <div class="modal-box">
-  <h3 class="modal-title" id="behaviorStudent"></h3>
-  <div id="behaviorExisting"></div>
 
-  <div id="behaviorForm">
-    <div class="field">
-      <label>السلوك</label>
-      <textarea class="control" id="behaviorValue" rows="3" placeholder="اكتب السلوك المرصود..."></textarea>
+  <h3
+    class="modal-title"
+    id="behaviorStudent"
+  >
+    السجل السلوكي
+  </h3>
+
+
+  <div
+    id="behaviorSummary"
+    class="behavior-summary"
+  ></div>
+
+
+  <div class="behavior-history">
+
+    <div class="behavior-history-title">
+      السلوكيات المسجلة
     </div>
-    <div class="field">
-      <label>تاريخ السلوك</label>
-      <input class="control" id="behaviorDate" type="date">
-    </div>
-    <div class="field">
-      <label>الإجراء المتخذ</label>
-      <textarea class="control" id="behaviorAction" rows="3" placeholder="اكتب الإجراء المتخذ..."></textarea>
-    </div>
-    <div class="field">
-      <label>المصدر</label>
-      <input class="control" id="behaviorSource" placeholder="مثال: معلم المادة / المناوبة / الإدارة">
-    </div>
-    <div class="modal-actions">
-      <button class="behavior-btn" onclick="saveBehavior()">حفظ السلوك</button>
-      <button class="soft" onclick="closeModal('behaviorModal')">إلغاء</button>
-    </div>
+
+    <div id="behaviorHistory"></div>
+
   </div>
+
+
+  <div
+    id="behaviorLimit"
+    class="limit-message hidden"
+  >
+    تم استكمال السلوكيات الخمس لهذا الطالب،
+    ولا يمكن إضافة سجل جديد.
+  </div>
+
+
+  <div
+    id="behaviorForm"
+    class="behavior-form"
+  >
+
+    <div class="behavior-form-title">
+      إضافة سلوك جديد
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        السلوك
+      </label>
+
+      <textarea
+        class="control"
+        id="behaviorValue"
+        placeholder="اكتب وصف السلوك..."
+      ></textarea>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        تاريخ السلوك
+      </label>
+
+      <input
+        class="control"
+        id="behaviorDate"
+        type="date"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        الإجراء المتخذ
+      </label>
+
+      <textarea
+        class="control"
+        id="behaviorAction"
+        placeholder="اكتب الإجراء الذي تم اتخاذه..."
+      ></textarea>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        مصدر السلوك
+      </label>
+
+      <input
+        class="control"
+        id="behaviorSource"
+        list="behaviorSources"
+        placeholder="مثال: معلم المادة"
+      >
+
+      <datalist id="behaviorSources">
+        <option value="معلم المادة">
+        <option value="معلم المناوبة">
+        <option value="المعلم الأول">
+        <option value="إدارة المدرسة">
+        <option value="الأخصائي الاجتماعي">
+        <option value="الأخصائي النفسي">
+        <option value="ولي الأمر">
+        <option value="مصدر آخر">
+      </datalist>
+
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        id="saveBehaviorButton"
+        class="primary"
+        onclick="saveBehavior()"
+      >
+        حفظ السلوك
+      </button>
+
+      <button
+        class="soft"
+        onclick="closeModal('behaviorModal')"
+      >
+        إلغاء
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="behaviorCloseOnly"
+    class="modal-actions hidden"
+  >
+
+    <button
+      class="soft full"
+      onclick="closeModal('behaviorModal')"
+    >
+      إغلاق
+    </button>
+
+  </div>
+
 </div>
+
 </div>
+
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbz-uBDEsjAlHFRnqTD_vqqTD1RjCffNGxQuIi3h82wUGANNDC0dSSv5UIAbaWgWZzvJ/exec";
+
+/* ==========================================
+   رابط Apps Script
+========================================== */
+
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbz-uBDEsjAlHFRnqTD_vqqTD1RjCffNGxQuIi3h82wUGANNDC0dSSv5UIAbaWgWZzvJ/exec";
+
+
+/* ==========================================
+   حالة المنصة
+========================================== */
 
 let session = {
-  employeeId: "",
-  pin: "",
-  teacher: "",
-  records: [],
-  currentRecord: null,
-  students: [],
-  tools: [],
-  selectedStudent: null,
-  recordType: "assessment"
+
+  employeeId:"",
+  pin:"",
+  teacher:"",
+
+  records:[],
+
+  currentRecord:null,
+
+  students:[],
+  tools:[],
+
+  selectedStudent:null,
+
+  savingBehavior:false
+
 };
 
-const $ = id => document.getElementById(id);
 
-function setStatus(message,type="ok") {
+const $ =
+  id =>
+    document.getElementById(id);
+
+
+/* ==========================================
+   حماية النصوص عند العرض
+========================================== */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* ==========================================
+   الرسائل
+========================================== */
+
+function setStatus(
+  message,
+  type="ok"
+){
+
   $("status").innerHTML =
     message
-      ? `<div class="status ${type}">${message}</div>`
+      ? `<div class="status ${type}">${escapeHtml(message)}</div>`
       : "";
+
 }
 
-async function api(data) {
-  const response = await fetch(API_URL,{
-    method:"POST",
-    headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(data)
-  });
 
-  return await response.json();
-}
+/* ==========================================
+   الاتصال بالخادم
+========================================== */
 
-async function login() {
-  const employeeId = $("employeeId").value.trim();
-  const pin = $("pin").value.trim();
+async function api(data){
 
-  if (!employeeId || !pin) {
-    return setStatus("أدخل الرقم الوظيفي وPIN.","err");
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify(data)
+      }
+    );
+
+
+  if(!response.ok){
+
+    throw new Error(
+      "تعذر الاتصال بالخدمة."
+    );
+
   }
 
-  setStatus("جاري التحقق...");
 
-  try {
-    const data = await api({
-      action:"login",
-      employeeId,
-      pin
-    });
+  return await response.json();
 
-    if (!data.success) {
+}
+
+
+/* ==========================================
+   تسجيل الدخول
+========================================== */
+
+async function login(){
+
+  const employeeId =
+    $("employeeId")
+      .value
+      .trim();
+
+
+  const pin =
+    $("pin")
+      .value
+      .trim();
+
+
+  if(
+    !employeeId ||
+    !pin
+  ){
+
+    return setStatus(
+      "أدخل الرقم الوظيفي وPIN.",
+      "err"
+    );
+
+  }
+
+
+  setStatus(
+    "جاري التحقق..."
+  );
+
+
+  try{
+
+    const data =
+      await api({
+
+        action:"login",
+
+        employeeId,
+        pin
+
+      });
+
+
+    if(!data.success){
+
       return setStatus(
-        data.message || "تعذر تسجيل الدخول.",
+        data.message ||
+        "تعذر تسجيل الدخول.",
         "err"
       );
+
     }
 
-    session.employeeId = employeeId;
-    session.pin = pin;
-    session.teacher = data.teacher || "";
-    session.records = data.records || [];
+
+    session.employeeId =
+      employeeId;
+
+
+    session.pin =
+      pin;
+
+
+    session.teacher =
+      data.teacher || "";
+
+
+    session.records =
+      data.records || [];
+
 
     $("teacherName").textContent =
-      "مرحبًا، " + session.teacher;
+      "مرحبًا، " +
+      session.teacher;
+
 
     renderRecords();
 
-    $("loginView").classList.add("hidden");
-    $("recordsView").classList.remove("hidden");
+
+    $("loginView")
+      .classList
+      .add("hidden");
+
+
+    $("recordsView")
+      .classList
+      .remove("hidden");
+
 
     setStatus("");
 
-  } catch(error) {
-    setStatus("تعذر الاتصال بالخدمة.","err");
+
+  }catch(error){
+
+    setStatus(
+      error.message ||
+      "تعذر الاتصال بالخدمة.",
+      "err"
+    );
+
   }
+
 }
 
-function renderRecords() {
-  const grid = $("recordsGrid");
+
+/* ==========================================
+   عرض السجلات
+========================================== */
+
+function renderRecords(){
+
+  const grid =
+    $("recordsGrid");
+
+
   grid.innerHTML = "";
 
-  session.records.forEach((record,index) => {
-    const button = document.createElement("button");
-    button.className = "record";
 
-    button.innerHTML = `
-      <div class="subject">${record.subject || ""}</div>
-      <div class="class">${record.grade || ""} · الشعبة ${record.className || ""}</div>
-      <div class="sheet">${record.sheetName || ""}</div>
-    `;
+  if(
+    !session.records.length
+  ){
 
-    button.onclick = () => openRecord(index);
-    grid.appendChild(button);
-  });
+    grid.innerHTML =
+      '<div class="empty">لا توجد سجلات مخصصة لهذا المستخدم.</div>';
+
+    return;
+
+  }
+
+
+  session.records.forEach(
+    (record,index)=>{
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      const behavior =
+        record.recordType ===
+        "behavior";
+
+
+      button.className =
+        "record" +
+        (
+          behavior
+            ? " behavior-record"
+            : ""
+        );
+
+
+      button.innerHTML = `
+
+        <div class="subject">
+          ${escapeHtml(record.subject || "")}
+        </div>
+
+        <div class="class">
+          ${escapeHtml(record.grade || "")}
+          · الشعبة
+          ${escapeHtml(record.className || "")}
+        </div>
+
+        <div class="sheet">
+          ${escapeHtml(record.sheetName || "")}
+        </div>
+
+        ${
+          behavior
+            ? '<div class="type-pill">سجل سلوكي</div>'
+            : ''
+        }
+
+      `;
+
+
+      button.onclick =
+        () =>
+          openRecord(index);
+
+
+      grid.appendChild(
+        button
+      );
+
+    }
+  );
+
 }
 
-async function openRecord(index) {
+
+/* ==========================================
+   فتح سجل
+========================================== */
+
+async function openRecord(index){
+
   session.currentRecord =
     session.records[index];
 
+
+  session.selectedStudent =
+    null;
+
+
+  $("searchStudent").value =
+    "";
+
+
+  const record =
+    session.currentRecord;
+
+
   $("recordTitle").textContent =
-    `${session.currentRecord.subject} · ${session.currentRecord.grade}/${session.currentRecord.className}`;
+    `${record.subject} · ${record.grade}/${record.className}`;
 
-  session.recordType = session.currentRecord.recordType ||
-    (session.currentRecord.subject === "سجل السلوك" ? "behavior" : "assessment");
 
-  $("recordSub").textContent =
-    session.recordType === "behavior"
-      ? `المخول بالرصد: ${session.teacher}`
-      : `المعلم: ${session.teacher}`;
+  if(
+    record.recordType ===
+    "behavior"
+  ){
 
-  $("bulkButton").classList.toggle("hidden", session.recordType === "behavior");
+    $("recordSub").textContent =
+      "سجل السلوك الطلابي · " +
+      session.teacher;
 
-  setStatus("جاري تحميل سجل الطلبة...");
 
-  try {
-    await loadStudents();
+    $("bulkButton")
+      .classList
+      .add("hidden");
 
-    $("recordsView").classList.add("hidden");
-    $("studentsView").classList.remove("hidden");
+  }else{
 
-    renderStudents();
-    setStatus("");
+    $("recordSub").textContent =
+      "المعلم: " +
+      session.teacher;
 
-  } catch(error) {
-    setStatus(
-      error.message || "تعذر تحميل السجل.",
-      "err"
-    );
-  }
-}
 
-async function loadStudents() {
-  const data = await api({
-    action:"students",
-    employeeId:session.employeeId,
-    pin:session.pin,
-    recordId:session.currentRecord.recordId
-  });
+    $("bulkButton")
+      .classList
+      .remove("hidden");
 
-  if (!data.success) {
-    throw new Error(
-      data.message || "تعذر تحميل السجل"
-    );
   }
 
-  session.students = data.students || [];
-  session.tools = data.tools || [];
-  session.recordType = data.recordType || session.currentRecord.recordType || session.recordType;
-}
 
-function renderStudents() {
-  const query = $("searchStudent").value.trim().toLowerCase();
-  const list = $("studentsList");
-  list.innerHTML = "";
-
-  const filtered = session.students.filter(student =>
-    String(student.name).toLowerCase().includes(query)
+  setStatus(
+    "جاري تحميل سجل الطلبة..."
   );
 
-  if (!filtered.length) {
-    list.innerHTML = '<div class="empty">لا توجد نتائج.</div>';
-    return;
+
+  try{
+
+    await loadStudents();
+
+
+    $("recordsView")
+      .classList
+      .add("hidden");
+
+
+    $("studentsView")
+      .classList
+      .remove("hidden");
+
+
+    renderStudents();
+
+
+    setStatus("");
+
+
+  }catch(error){
+
+    setStatus(
+      error.message ||
+      "تعذر تحميل السجل.",
+      "err"
+    );
+
   }
 
-  filtered.forEach(student => {
-    const item = document.createElement("div");
-    item.className = "student";
-
-    if (session.recordType === "behavior") {
-      const count = (student.behaviors || []).length;
-      item.innerHTML = `
-        <div class="student-head">
-          <div>
-            <div class="student-name">${student.name}</div>
-            <div class="sub">الرقم المدني: ${student.civilId || "—"}</div>
-          </div>
-          <div class="actions">
-            <button class="behavior-btn">السجل السلوكي</button>
-          </div>
-        </div>
-        <div class="badges">
-          <span class="badge ${count ? "behavior-badge" : ""}">
-            ${count ? `السلوكيات المرصودة: ${count} من 5` : "لا توجد سلوكيات مرصودة"}
-          </span>
-        </div>`;
-      item.querySelector("button").onclick = () => openBehavior(student);
-    } else {
-      const badges = (student.grades || []).map(grade => `
-        <span class="badge ${grade.value !== "" ? "done" : ""}">
-          ${grade.name}: ${grade.value !== "" ? grade.value : "—"}
-        </span>`).join("");
-
-      item.innerHTML = `
-        <div class="student-head">
-          <div class="student-name">${student.name}</div>
-          <div class="actions">
-            <button class="primary">درجة</button>
-            <button class="soft">ملاحظة</button>
-          </div>
-        </div>
-        <div class="badges">
-          ${badges}
-          ${student.note ? '<span class="badge note-badge">ملاحظة موجودة</span>' : ''}
-        </div>`;
-
-      const buttons = item.querySelectorAll("button");
-      buttons[0].onclick = () => openGrade(student);
-      buttons[1].onclick = () => openNote(student);
-    }
-
-    list.appendChild(item);
-  });
 }
 
-function openBehavior(student) {
-  session.selectedStudent = student;
-  $("behaviorStudent").textContent = "السجل السلوكي · " + student.name;
 
-  const behaviors = student.behaviors || [];
-  if (!behaviors.length) {
-    $("behaviorExisting").innerHTML = '<div class="behavior-empty">لا توجد سلوكيات مرصودة لهذا الطالب.</div>';
-  } else {
-    $("behaviorExisting").innerHTML = behaviors.map(item => `
-      <div class="behavior-card">
-        <strong>السلوك ${item.slot}: ${item.behavior || "—"}</strong>
-        <div class="behavior-meta">
-          <div><b>التاريخ:</b> ${item.date || "—"}</div>
-          <div><b>المصدر:</b> ${item.source || "—"}</div>
-          <div style="grid-column:1/-1"><b>الإجراء:</b> ${item.action || "—"}</div>
-        </div>
-      </div>`).join("");
-  }
+/* ==========================================
+   تحميل الطلاب
+========================================== */
 
-  const full = behaviors.length >= 5;
-  $("behaviorForm").classList.toggle("hidden", full);
-  if (full) {
-    $("behaviorExisting").innerHTML += '<div class="status err">تم استكمال السلوكيات الخمس لهذا الطالب.</div>';
-  } else {
-    $("behaviorValue").value = "";
-    $("behaviorAction").value = "";
-    $("behaviorSource").value = "";
-    $("behaviorDate").value = new Date().toISOString().slice(0,10);
-  }
+async function loadStudents(){
 
-  $("behaviorModal").classList.remove("hidden");
-}
+  const data =
+    await api({
 
-async function saveBehavior() {
-  const behavior = $("behaviorValue").value.trim();
-  const date = $("behaviorDate").value;
-  const actionTaken = $("behaviorAction").value.trim();
-  const source = $("behaviorSource").value.trim();
+      action:"students",
 
-  if (!behavior || !date || !actionTaken || !source) {
-    return alert("يرجى تعبئة السلوك والتاريخ والإجراء والمصدر");
-  }
+      employeeId:
+        session.employeeId,
 
-  try {
-    const data = await api({
-      action:"saveBehavior",
-      employeeId:session.employeeId,
-      pin:session.pin,
-      recordId:session.currentRecord.recordId,
-      civilId:session.selectedStudent.civilId,
-      behavior,
-      date,
-      actionTaken,
-      source
+      pin:
+        session.pin,
+
+      recordId:
+        session.currentRecord.recordId
+
     });
 
-    if (!data.success) {
-      return setStatus(data.message || "تعذر حفظ السلوك.", "err");
-    }
 
-    closeModal("behaviorModal");
-    await loadStudents();
-    renderStudents();
-    setStatus(data.message || "تم حفظ السلوك بنجاح.");
-  } catch(error) {
-    setStatus(error.message || "تعذر حفظ السلوك.", "err");
+  if(!data.success){
+
+    throw new Error(
+      data.message ||
+      "تعذر تحميل السجل"
+    );
+
   }
+
+
+  session.students =
+    data.students || [];
+
+
+  session.tools =
+    data.tools || [];
+
+
+  // الخادم هو المرجع النهائي لنوع السجل
+
+  if(data.recordType){
+
+    session.currentRecord.recordType =
+      data.recordType;
+
+  }
+
+
+  if(
+    session.currentRecord.recordType ===
+    "behavior"
+  ){
+
+    $("bulkButton")
+      .classList
+      .add("hidden");
+
+  }else{
+
+    $("bulkButton")
+      .classList
+      .remove("hidden");
+
+  }
+
 }
 
-function fillTools(id) {
-  const select = $(id);
+
+/* ==========================================
+   عرض الطلاب
+========================================== */
+
+function renderStudents(){
+
+  const query =
+    $("searchStudent")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  const list =
+    $("studentsList");
+
+
+  list.innerHTML = "";
+
+
+  const filtered =
+    session.students.filter(
+      student => {
+
+        const name =
+          String(
+            student.name || ""
+          )
+          .toLowerCase();
+
+
+        const civil =
+          String(
+            student.civilId || ""
+          )
+          .toLowerCase();
+
+
+        return (
+          name.includes(query) ||
+          civil.includes(query)
+        );
+
+      }
+    );
+
+
+  if(!filtered.length){
+
+    list.innerHTML =
+      '<div class="empty">لا توجد نتائج.</div>';
+
+    return;
+
+  }
+
+
+  if(
+    session.currentRecord &&
+    session.currentRecord.recordType ===
+    "behavior"
+  ){
+
+    renderBehaviorStudents(
+      filtered,
+      list
+    );
+
+    return;
+
+  }
+
+
+  renderAssessmentStudents(
+    filtered,
+    list
+  );
+
+}
+
+
+/* ==========================================
+   طلاب السجل الأكاديمي
+========================================== */
+
+function renderAssessmentStudents(
+  students,
+  list
+){
+
+  students.forEach(
+    student => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "student";
+
+
+      const badges =
+        (student.grades || [])
+          .map(
+            grade => `
+
+              <span
+                class="badge ${
+                  grade.value !== ""
+                    ? "done"
+                    : ""
+                }"
+              >
+
+                ${escapeHtml(grade.name)}:
+                ${
+                  grade.value !== ""
+                    ? escapeHtml(grade.value)
+                    : "—"
+                }
+
+              </span>
+
+            `
+          )
+          .join("");
+
+
+      item.innerHTML = `
+
+        <div class="student-head">
+
+          <div>
+
+            <div class="student-name">
+              ${escapeHtml(student.name)}
+            </div>
+
+          </div>
+
+
+          <div class="actions">
+
+            <button class="primary">
+              درجة
+            </button>
+
+            <button class="soft">
+              ملاحظة
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="badges">
+
+          ${badges}
+
+          ${
+            student.note
+              ? '<span class="badge note-badge">ملاحظة موجودة</span>'
+              : ''
+          }
+
+        </div>
+
+      `;
+
+
+      const buttons =
+        item.querySelectorAll(
+          "button"
+        );
+
+
+      buttons[0].onclick =
+        () =>
+          openGrade(student);
+
+
+      buttons[1].onclick =
+        () =>
+          openNote(student);
+
+
+      list.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   طلاب سجل السلوك
+========================================== */
+
+function renderBehaviorStudents(
+  students,
+  list
+){
+
+  students.forEach(
+    student => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "student";
+
+
+      const count =
+        Number(
+          student.behaviorCount || 0
+        );
+
+
+      const full =
+        count >= 5;
+
+
+      item.innerHTML = `
+
+        <div class="student-head">
+
+          <div>
+
+            <div class="student-name">
+              ${escapeHtml(student.name)}
+            </div>
+
+            ${
+              student.civilId
+                ? `
+                  <div class="student-meta">
+                    الرقم المدني:
+                    ${escapeHtml(student.civilId)}
+                  </div>
+                `
+                : ""
+            }
+
+          </div>
+
+
+          <div class="actions">
+
+            <button class="primary">
+              السجل السلوكي
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="badges">
+
+          <span
+            class="badge behavior-count ${
+              full
+                ? "full"
+                : ""
+            }"
+          >
+            ${count} من 5 سلوكيات
+          </span>
+
+          ${
+            count === 0
+              ? '<span class="badge">لا توجد سلوكيات مسجلة</span>'
+              : '<span class="badge done">يوجد سجل سلوكي</span>'
+          }
+
+        </div>
+
+      `;
+
+
+      item
+        .querySelector("button")
+        .onclick =
+          () =>
+            openBehavior(student);
+
+
+      list.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   تعبئة أدوات التقويم
+========================================== */
+
+function fillTools(id){
+
+  const select =
+    $(id);
+
+
   select.innerHTML = "";
 
-  session.tools.forEach(tool => {
-    const option =
-      document.createElement("option");
 
-    option.value = tool.column;
-    option.textContent = tool.name;
+  session.tools.forEach(
+    tool => {
 
-    select.appendChild(option);
-  });
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        tool.column;
+
+
+      option.textContent =
+        tool.name;
+
+
+      select.appendChild(
+        option
+      );
+
+    }
+  );
+
 }
 
-function openGrade(student) {
-  session.selectedStudent = student;
+
+/* ==========================================
+   الدرجة
+========================================== */
+
+function openGrade(student){
+
+  session.selectedStudent =
+    student;
+
 
   $("gradeStudent").textContent =
     student.name;
 
-  fillTools("toolSelect");
 
-  if (session.tools.length) {
+  fillTools(
+    "toolSelect"
+  );
+
+
+  if(
+    session.tools.length
+  ){
+
     syncExistingGrade();
-  } else {
+
+  }else{
+
     $("gradeExisting").textContent =
       "لم يتم اكتشاف أدوات تقويم في هذا السجل.";
 
-    $("gradeValue").value = "";
+
+    $("gradeValue").value =
+      "";
+
   }
 
-  $("gradeModal").classList.remove("hidden");
+
+  $("gradeModal")
+    .classList
+    .remove("hidden");
+
 }
 
-function syncExistingGrade() {
+
+function syncExistingGrade(){
+
   const column =
-    Number($("toolSelect").value);
+    Number(
+      $("toolSelect").value
+    );
+
 
   const grade =
-    (session.selectedStudent.grades || [])
-      .find(
-        item =>
-          Number(item.column) === column
-      );
+    (
+      session
+        .selectedStudent
+        .grades || []
+    )
+    .find(
+      item =>
+        Number(
+          item.column
+        ) === column
+    );
+
 
   const value =
-    grade ? grade.value : "";
+    grade
+      ? grade.value
+      : "";
 
-  $("gradeValue").value = value;
+
+  $("gradeValue").value =
+    value;
+
 
   $("gradeExisting").textContent =
     value !== ""
-      ? "الدرجة المرصودة حاليًا: " + value
+      ? "الدرجة المرصودة حاليًا: " +
+        value
       : "لم تُرصد درجة لهذا البند بعد.";
+
 }
 
-function openNote(student) {
-  session.selectedStudent = student;
+
+/* ==========================================
+   الملاحظة
+========================================== */
+
+function openNote(student){
+
+  session.selectedStudent =
+    student;
+
 
   $("noteStudent").textContent =
     student.name;
 
+
   $("noteValue").value =
     student.note || "";
 
-  $("noteModal").classList.remove("hidden");
+
+  $("noteModal")
+    .classList
+    .remove("hidden");
+
 }
 
-async function saveGrade() {
-  if (!session.tools.length) return;
+
+/* ==========================================
+   حفظ الدرجة
+========================================== */
+
+async function saveGrade(){
+
+  if(
+    !session.tools.length
+  ){
+
+    return;
+
+  }
+
 
   const column =
-    Number($("toolSelect").value);
+    Number(
+      $("toolSelect").value
+    );
+
 
   const grade =
     $("gradeValue").value;
 
-  if (grade === "") {
-    return alert("أدخل الدرجة");
+
+  if(grade === ""){
+
+    return alert(
+      "أدخل الدرجة"
+    );
+
   }
 
-  try {
-    const data = await api({
-      action:"saveGrade",
-      employeeId:session.employeeId,
-      pin:session.pin,
-      recordId:session.currentRecord.recordId,
-      row:session.selectedStudent.row,
-      column,
-      grade
-    });
 
-    if (!data.success) {
+  try{
+
+    const data =
+      await api({
+
+        action:"saveGrade",
+
+        employeeId:
+          session.employeeId,
+
+        pin:
+          session.pin,
+
+        recordId:
+          session.currentRecord.recordId,
+
+        row:
+          session.selectedStudent.row,
+
+        column,
+
+        grade
+
+      });
+
+
+    if(!data.success){
+
       return setStatus(
-        data.message || "تعذر الحفظ.",
+        data.message ||
+        "تعذر الحفظ.",
         "err"
       );
+
     }
+
 
     const oldGrade =
-      (session.selectedStudent.grades || [])
-        .find(
-          item =>
-            Number(item.column) === column
-        );
+      (
+        session
+          .selectedStudent
+          .grades || []
+      )
+      .find(
+        item =>
+          Number(
+            item.column
+          ) === column
+      );
 
-    if (oldGrade) {
+
+    if(oldGrade){
+
       oldGrade.value =
         String(grade);
+
     }
 
-    closeModal("gradeModal");
+
+    closeModal(
+      "gradeModal"
+    );
+
+
     renderStudents();
+
 
     setStatus(
       "تم حفظ الدرجة بنجاح."
     );
 
-  } catch(error) {
+
+  }catch(error){
+
     setStatus(
+      error.message ||
       "تعذر حفظ الدرجة.",
       "err"
     );
+
   }
+
 }
 
-async function saveNote() {
-  const note =
-    $("noteValue").value.trim();
 
-  if (!note) {
-    return alert("اكتب الملاحظة");
+/* ==========================================
+   حفظ الملاحظة
+========================================== */
+
+async function saveNote(){
+
+  const note =
+    $("noteValue")
+      .value
+      .trim();
+
+
+  if(!note){
+
+    return alert(
+      "اكتب الملاحظة"
+    );
+
   }
 
-  try {
-    const data = await api({
-      action:"saveNote",
-      employeeId:session.employeeId,
-      pin:session.pin,
-      recordId:session.currentRecord.recordId,
-      row:session.selectedStudent.row,
-      note
-    });
 
-    if (!data.success) {
+  try{
+
+    const data =
+      await api({
+
+        action:"saveNote",
+
+        employeeId:
+          session.employeeId,
+
+        pin:
+          session.pin,
+
+        recordId:
+          session.currentRecord.recordId,
+
+        row:
+          session.selectedStudent.row,
+
+        note
+
+      });
+
+
+    if(!data.success){
+
       return setStatus(
-        data.message || "تعذر الحفظ.",
+        data.message ||
+        "تعذر الحفظ.",
         "err"
       );
+
     }
+
 
     session.selectedStudent.note =
       note;
 
-    closeModal("noteModal");
+
+    closeModal(
+      "noteModal"
+    );
+
+
     renderStudents();
+
 
     setStatus(
       "تم حفظ الملاحظة بنجاح."
     );
 
-  } catch(error) {
+
+  }catch(error){
+
     setStatus(
+      error.message ||
       "تعذر حفظ الملاحظة.",
       "err"
     );
+
   }
+
 }
 
-function openBulk() {
-  if (!session.tools.length) {
+
+/* ==========================================
+   الرصد الجماعي
+========================================== */
+
+function openBulk(){
+
+  if(
+    !session.currentRecord ||
+    session.currentRecord.recordType ===
+    "behavior"
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    !session.tools.length
+  ){
+
     return setStatus(
       "لم يتم اكتشاف أدوات تقويم في هذا السجل.",
       "err"
     );
+
   }
 
-  fillTools("bulkToolSelect");
+
+  fillTools(
+    "bulkToolSelect"
+  );
+
+
   renderBulkRows();
 
-  $("bulkModal").classList.remove("hidden");
+
+  $("bulkModal")
+    .classList
+    .remove("hidden");
+
 }
 
-function renderBulkRows() {
+
+function renderBulkRows(){
+
   const column =
-    Number($("bulkToolSelect").value);
+    Number(
+      $("bulkToolSelect").value
+    );
+
 
   const box =
     $("bulkRows");
 
+
   box.innerHTML = "";
 
-  session.students.forEach(student => {
-    const current =
-      (student.grades || [])
+
+  session.students.forEach(
+    student => {
+
+      const current =
+        (
+          student.grades || []
+        )
         .find(
           item =>
-            Number(item.column) === column
+            Number(
+              item.column
+            ) === column
         );
 
-    const value =
-      current ? current.value : "";
 
-    const row =
-      document.createElement("div");
+      const value =
+        current
+          ? current.value
+          : "";
 
-    row.className = "bulk-row";
 
-    row.innerHTML = `
-      <div>${student.name}</div>
-      <input
-        class="control"
-        type="number"
-        step="any"
-        data-row="${student.row}"
-        value="${value}"
-        placeholder="الدرجة"
-      >
-    `;
+      const row =
+        document.createElement(
+          "div"
+        );
 
-    box.appendChild(row);
-  });
+
+      row.className =
+        "bulk-row";
+
+
+      const name =
+        document.createElement(
+          "div"
+        );
+
+
+      name.textContent =
+        student.name;
+
+
+      const input =
+        document.createElement(
+          "input"
+        );
+
+
+      input.className =
+        "control";
+
+
+      input.type =
+        "number";
+
+
+      input.step =
+        "any";
+
+
+      input.dataset.row =
+        student.row;
+
+
+      input.value =
+        value;
+
+
+      input.placeholder =
+        "الدرجة";
+
+
+      row.appendChild(
+        name
+      );
+
+
+      row.appendChild(
+        input
+      );
+
+
+      box.appendChild(
+        row
+      );
+
+    }
+  );
+
 }
 
-async function saveBulk() {
+
+async function saveBulk(){
+
   const column =
-    Number($("bulkToolSelect").value);
+    Number(
+      $("bulkToolSelect").value
+    );
+
 
   const inputs =
-    [...document.querySelectorAll("#bulkRows input")];
+    [
+      ...document
+        .querySelectorAll(
+          "#bulkRows input"
+        )
+    ];
+
 
   const grades =
     inputs
-      .filter(input => input.value !== "")
-      .map(input => ({
-        row:Number(input.dataset.row),
-        grade:input.value
-      }));
+      .filter(
+        input =>
+          input.value !== ""
+      )
+      .map(
+        input => ({
 
-  if (!grades.length) {
+          row:
+            Number(
+              input.dataset.row
+            ),
+
+          grade:
+            input.value
+
+        })
+      );
+
+
+  if(!grades.length){
+
     return alert(
       "أدخل درجة واحدة على الأقل"
     );
+
   }
 
-  try {
-    const data = await api({
-      action:"saveBulkGrades",
-      employeeId:session.employeeId,
-      pin:session.pin,
-      recordId:session.currentRecord.recordId,
-      column,
-      grades
-    });
 
-    if (!data.success) {
+  try{
+
+    const data =
+      await api({
+
+        action:
+          "saveBulkGrades",
+
+        employeeId:
+          session.employeeId,
+
+        pin:
+          session.pin,
+
+        recordId:
+          session.currentRecord.recordId,
+
+        column,
+
+        grades
+
+      });
+
+
+    if(!data.success){
+
       return setStatus(
-        data.message || "تعذر الحفظ.",
+        data.message ||
+        "تعذر الحفظ.",
         "err"
       );
+
     }
 
-    closeModal("bulkModal");
+
+    closeModal(
+      "bulkModal"
+    );
+
 
     await loadStudents();
+
+
     renderStudents();
+
 
     setStatus(
       data.message ||
       "تم حفظ الدرجات."
     );
 
-  } catch(error) {
+
+  }catch(error){
+
     setStatus(
+      error.message ||
       "تعذر حفظ الدرجات.",
       "err"
     );
+
   }
+
 }
 
-async function refreshStudents() {
+
+/* ==========================================
+   فتح السجل السلوكي
+========================================== */
+
+function openBehavior(student){
+
+  session.selectedStudent =
+    student;
+
+
+  session.savingBehavior =
+    false;
+
+
+  $("behaviorStudent").textContent =
+    "السجل السلوكي · " +
+    student.name;
+
+
+  $("behaviorValue").value =
+    "";
+
+
+  $("behaviorAction").value =
+    "";
+
+
+  $("behaviorSource").value =
+    "";
+
+
+  $("behaviorDate").value =
+    getTodayForInput();
+
+
+  $("saveBehaviorButton").disabled =
+    false;
+
+
+  $("saveBehaviorButton").textContent =
+    "حفظ السلوك";
+
+
+  renderBehaviorModal();
+
+
+  $("behaviorModal")
+    .classList
+    .remove("hidden");
+
+}
+
+
+/* ==========================================
+   تاريخ اليوم
+========================================== */
+
+function getTodayForInput(){
+
+  const now =
+    new Date();
+
+
+  const year =
+    now.getFullYear();
+
+
+  const month =
+    String(
+      now.getMonth() + 1
+    )
+    .padStart(
+      2,
+      "0"
+    );
+
+
+  const day =
+    String(
+      now.getDate()
+    )
+    .padStart(
+      2,
+      "0"
+    );
+
+
+  return (
+    year +
+    "-" +
+    month +
+    "-" +
+    day
+  );
+
+}
+
+
+/* ==========================================
+   عرض نافذة السلوك
+========================================== */
+
+function renderBehaviorModal(){
+
+  const student =
+    session.selectedStudent;
+
+
+  if(!student){
+
+    return;
+
+  }
+
+
+  const behaviors =
+    student.behaviors || [];
+
+
+  const count =
+    behaviors.length;
+
+
+  $("behaviorSummary").innerHTML = `
+
+    <div>
+
+      <strong>
+        ${escapeHtml(student.name)}
+      </strong>
+
+      <div class="student-meta">
+        ${
+          student.civilId
+            ? "الرقم المدني: " +
+              escapeHtml(student.civilId)
+            : ""
+        }
+      </div>
+
+    </div>
+
+    <div>
+      <strong>
+        ${count} / 5
+      </strong>
+    </div>
+
+  `;
+
+
+  const history =
+    $("behaviorHistory");
+
+
+  history.innerHTML =
+    "";
+
+
+  if(!behaviors.length){
+
+    history.innerHTML =
+      '<div class="existing">لا توجد سلوكيات مسجلة لهذا الطالب حتى الآن.</div>';
+
+  }else{
+
+    behaviors.forEach(
+      item => {
+
+        const card =
+          document.createElement(
+            "div"
+          );
+
+
+        card.className =
+          "behavior-card";
+
+
+        card.innerHTML = `
+
+          <div class="behavior-card-top">
+
+            <div class="behavior-number">
+              السلوك ${escapeHtml(item.number)}
+            </div>
+
+            <div class="behavior-date">
+              ${escapeHtml(item.date || "بدون تاريخ")}
+            </div>
+
+          </div>
+
+
+          <div class="behavior-main">
+            ${escapeHtml(item.behavior || "—")}
+          </div>
+
+
+          <div class="behavior-detail">
+
+            <strong>
+              الإجراء:
+            </strong>
+
+            ${escapeHtml(item.action || "—")}
+
+            <br>
+
+            <strong>
+              المصدر:
+            </strong>
+
+            ${escapeHtml(item.source || "—")}
+
+          </div>
+
+        `;
+
+
+        history.appendChild(
+          card
+        );
+
+      }
+    );
+
+  }
+
+
+  const full =
+    count >= 5;
+
+
+  if(full){
+
+    $("behaviorForm")
+      .classList
+      .add("hidden");
+
+
+    $("behaviorLimit")
+      .classList
+      .remove("hidden");
+
+
+    $("behaviorCloseOnly")
+      .classList
+      .remove("hidden");
+
+  }else{
+
+    $("behaviorForm")
+      .classList
+      .remove("hidden");
+
+
+    $("behaviorLimit")
+      .classList
+      .add("hidden");
+
+
+    $("behaviorCloseOnly")
+      .classList
+      .add("hidden");
+
+  }
+
+}
+
+
+/* ==========================================
+   حفظ السلوك
+
+   هذا الزر مرتبط فعليًا بـ:
+   action: saveBehavior
+========================================== */
+
+async function saveBehavior(){
+
+  // منع الضغط مرتين
+
+  if(
+    session.savingBehavior
+  ){
+
+    return;
+
+  }
+
+
+  const student =
+    session.selectedStudent;
+
+
+  if(!student){
+
+    return setStatus(
+      "لم يتم تحديد الطالب.",
+      "err"
+    );
+
+  }
+
+
+  if(!student.civilId){
+
+    return setStatus(
+      "الرقم المدني للطالب غير متوفر، ولا يمكن حفظ السلوك.",
+      "err"
+    );
+
+  }
+
+
+  const behavior =
+    $("behaviorValue")
+      .value
+      .trim();
+
+
+  const behaviorDate =
+    $("behaviorDate")
+      .value
+      .trim();
+
+
+  const behaviorAction =
+    $("behaviorAction")
+      .value
+      .trim();
+
+
+  const behaviorSource =
+    $("behaviorSource")
+      .value
+      .trim();
+
+
+  if(!behavior){
+
+    $("behaviorValue").focus();
+
+    return alert(
+      "اكتب السلوك أولًا."
+    );
+
+  }
+
+
+  if(!behaviorDate){
+
+    $("behaviorDate").focus();
+
+    return alert(
+      "حدد تاريخ السلوك."
+    );
+
+  }
+
+
+  if(!behaviorAction){
+
+    $("behaviorAction").focus();
+
+    return alert(
+      "اكتب الإجراء المتخذ."
+    );
+
+  }
+
+
+  if(!behaviorSource){
+
+    $("behaviorSource").focus();
+
+    return alert(
+      "حدد مصدر السلوك."
+    );
+
+  }
+
+
+  const button =
+    $("saveBehaviorButton");
+
+
+  // منع الضغط المكرر
+
+  session.savingBehavior =
+    true;
+
+
+  button.disabled =
+    true;
+
+
+  button.textContent =
+    "جاري الحفظ...";
+
+
+  try{
+
+    const data =
+      await api({
+
+        action:
+          "saveBehavior",
+
+        employeeId:
+          session.employeeId,
+
+        pin:
+          session.pin,
+
+        recordId:
+          session.currentRecord.recordId,
+
+        civilId:
+          student.civilId,
+
+        behavior:
+          behavior,
+
+        behaviorDate:
+          behaviorDate,
+
+        behaviorAction:
+          behaviorAction,
+
+        behaviorSource:
+          behaviorSource
+
+      });
+
+
+    // لا نعتبر العملية ناجحة
+    // إلا إذا أكد الخادم ذلك
+
+    if(!data.success){
+
+      throw new Error(
+        data.message ||
+        "تعذر حفظ السلوك."
+      );
+
+    }
+
+
+    /*
+      مهم:
+      بعد نجاح الخادم نعيد قراءة Google Sheet.
+      لا نعتمد على البيانات المحلية فقط.
+    */
+
+    await loadStudents();
+
+
+    const refreshedStudent =
+      session.students.find(
+        item =>
+          String(
+            item.civilId || ""
+          ).trim() ===
+          String(
+            student.civilId || ""
+          ).trim()
+      );
+
+
+    if(refreshedStudent){
+
+      session.selectedStudent =
+        refreshedStudent;
+
+    }
+
+
+    // تفريغ الحقول بعد نجاح الحفظ فقط
+
+    $("behaviorValue").value =
+      "";
+
+
+    $("behaviorAction").value =
+      "";
+
+
+    $("behaviorSource").value =
+      "";
+
+
+    $("behaviorDate").value =
+      getTodayForInput();
+
+
+    // تحديث قائمة الطلاب
+
+    renderStudents();
+
+
+    // تحديث نافذة الطالب
+    // وسيظهر السلوك الجديد فورًا
+
+    renderBehaviorModal();
+
+
+    setStatus(
+      data.message ||
+      "تم حفظ السلوك بنجاح."
+    );
+
+
+  }catch(error){
+
+    /*
+      إذا حدث خطأ:
+      لا نغلق النافذة
+      ولا نفرغ البيانات
+      حتى لا يفقد المستخدم ما كتبه.
+    */
+
+    setStatus(
+      error.message ||
+      "تعذر حفظ السلوك.",
+      "err"
+    );
+
+
+    alert(
+      error.message ||
+      "تعذر حفظ السلوك."
+    );
+
+  }finally{
+
+    session.savingBehavior =
+      false;
+
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      "حفظ السلوك";
+
+  }
+
+}
+
+
+/* ==========================================
+   تحديث البيانات
+========================================== */
+
+async function refreshStudents(){
+
   setStatus(
     "جاري تحديث البيانات..."
   );
 
-  try {
+
+  try{
+
     await loadStudents();
+
+
     renderStudents();
+
 
     setStatus(
       "تم تحديث البيانات."
     );
 
-  } catch(error) {
+
+  }catch(error){
+
     setStatus(
       error.message ||
       "تعذر التحديث.",
       "err"
     );
+
   }
+
 }
 
-function closeModal(id) {
-  $(id).classList.add("hidden");
+
+/* ==========================================
+   إغلاق النوافذ
+========================================== */
+
+function closeModal(id){
+
+  $(id)
+    .classList
+    .add("hidden");
+
 }
 
-function backToRecords() {
-  $("studentsView").classList.add("hidden");
-  $("recordsView").classList.remove("hidden");
 
-  session.currentRecord = null;
-  session.students = [];
-  session.tools = [];
-  session.selectedStudent = null;
-  session.recordType = "assessment";
+/* ==========================================
+   العودة
+========================================== */
+
+function backToRecords(){
+
+  $("studentsView")
+    .classList
+    .add("hidden");
+
+
+  $("recordsView")
+    .classList
+    .remove("hidden");
+
+
+  session.currentRecord =
+    null;
+
+
+  session.students =
+    [];
+
+
+  session.tools =
+    [];
+
+
+  session.selectedStudent =
+    null;
+
+
+  session.savingBehavior =
+    false;
+
+
+  $("searchStudent").value =
+    "";
+
 
   setStatus("");
+
 }
 
-function logout() {
+
+/* ==========================================
+   تسجيل الخروج
+========================================== */
+
+function logout(){
+
   session = {
+
     employeeId:"",
     pin:"",
     teacher:"",
+
     records:[],
+
     currentRecord:null,
+
     students:[],
     tools:[],
+
     selectedStudent:null,
-    recordType:"assessment"
+
+    savingBehavior:false
+
   };
 
-  $("recordsView").classList.add("hidden");
-  $("studentsView").classList.add("hidden");
-  $("loginView").classList.remove("hidden");
 
-  $("employeeId").value = "";
-  $("pin").value = "";
+  $("recordsView")
+    .classList
+    .add("hidden");
+
+
+  $("studentsView")
+    .classList
+    .add("hidden");
+
+
+  $("loginView")
+    .classList
+    .remove("hidden");
+
+
+  $("employeeId").value =
+    "";
+
+
+  $("pin").value =
+    "";
+
 
   setStatus("");
+
 }
+
+
+/* ==========================================
+   Enter لتسجيل الدخول
+========================================== */
+
+$("employeeId")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key === "Enter"
+      ){
+
+        $("pin").focus();
+
+      }
+
+    }
+  );
+
+
+$("pin")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key === "Enter"
+      ){
+
+        login();
+
+      }
+
+    }
+  );
+
 </script>
 
 </body>
